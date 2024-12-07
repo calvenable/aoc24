@@ -13,6 +13,10 @@ def partOne(inputFilePath):
       print(line)
 
   inputFile.close()
+  result = 0
+
+
+  return result
 
 
 # Code for Part Two ----------------------------------------------------
@@ -21,8 +25,8 @@ def partTwo(inputFilePath):
 
 
 # Run the code for the specified part ----------------------------------
-partOne("[DAY]/test.txt")
-# partOne("[DAY]/input.txt")
+print(partOne("[DAY]/test.txt"))
+# print(partOne("[DAY]/input.txt"))
 
-# partTwo("[DAY]/test.txt")
-# partTwo("[DAY]/input.txt")
+# print(partTwo("[DAY]/test.txt"))
+# print(partTwo("[DAY]/input.txt"))
