@@ -13,3 +13,6 @@ Each day I run `.\day.ps1` which is a PowerShell script that sets up a folder fo
 - Day 5: Re-ordering pages of a book based on rules like `97|13`
 - Day 6: Tracing a guard moving in a 2D map to see if he leaves or forms a loop
 - Day 7: Budget "Countdown" - Placing operators between each pair of numbers in a list to see if you can make the total e.g. `190 = 10 * 19`
+- Day 8: Extrapolating lines between antennae to find 'antinodes'
+- Day 9: Disk fragmentation and defragmentation with lists like `0..11...2222`
+- Day 10: Finding hiking trails from 0 to 9 with smooth inclines
