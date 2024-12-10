@@ -1,4 +1,5 @@
 # Advent of Code 2025 - [DAY]
+import pyperclip
 
 def usefulFunction():
   return True
@@ -25,8 +26,11 @@ def partTwo(inputFilePath):
 
 
 # Run the code for the specified part ----------------------------------
-print(partOne("[DAY]/test.txt"))
-# print(partOne("[DAY]/input.txt"))
+answer = partOne("[DAY]/test.txt")
+# answer = partOne("[DAY]/input.txt")
 
-# print(partTwo("[DAY]/test.txt"))
-# print(partTwo("[DAY]/input.txt"))
+# answer = partTwo("[DAY]/test.txt")
+# answer = partTwo("[DAY]/input.txt")
+
+pyperclip.copy(answer)
+print(answer)
