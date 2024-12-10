@@ -114,8 +114,6 @@ def partTwo(inputFilePath):
     id = 0
     for x in list(map(int, list(line.strip()))):
       if (isFree):
-        # TODO: I should not have put these into class objects
-        # Using an integer list would have been much faster!
         hardDrive.append(DiskItem(x))
       else:
         hardDrive.append(DiskItem(x, id))
@@ -124,11 +122,15 @@ def partTwo(inputFilePath):
 
   inputFile.close()
 
-  for fullFile in [x for x in hardDrive if not x.hasEmptySpace()]:
-    # Find the first DiskItem that has enough space for fullFile.length
-    # If it is to the left of fullFile:
-    # Move the whole file (repeatedly move chars until empty)
-    pass
+  # Iterate backwards over the hard drive, hopping over known free spaces using step:-2
+  for file in range(len(hardDrive)-1, -1, -2):
+    for space in range(1, file, 2):
+      if (hardDrive[space].countEmptySpaces() >= hardDrive[file].length):
+        for _ in range(hardDrive[file].length):
+          hardDrive[space].moveIn(hardDrive[file].moveOut())
+    # for line in hardDrive:
+    #   print(line, end='')
+    # print()
 
   blockList = []
   for diskitem in hardDrive:
@@ -140,5 +142,5 @@ def partTwo(inputFilePath):
 # print(partOne("day09/test.txt"))
 # print(partOne("day09/input.txt"))
 
-print(partTwo("day09/test.txt"))
-# print(partTwo("day09/input.txt"))
+# print(partTwo("day09/test.txt"))
+print(partTwo("day09/input.txt"))
