@@ -16,6 +16,7 @@ Each day I run `.\day.ps1` which is a PowerShell script that sets up a folder fo
 - **Day 8:** Extrapolating lines between antennae to find 'antinodes'
 - Day 9: Disk fragmentation and defragmentation with lists like `0..11...2222`
 - Day 10: Finding hiking trails from 0 to 9 with smooth inclines
+- Day 11: Working out how some magical stones are renumbering themselves
 
 
 > A **bold** day number indicates a weekend (when puzzles are generally slightly harder)
