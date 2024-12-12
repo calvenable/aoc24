@@ -17,6 +17,7 @@ Each day I run `.\day.ps1` which is a PowerShell script that sets up a folder fo
 - Day 9: Disk fragmentation and defragmentation with lists like `0..11...2222`
 - Day 10: Finding hiking trails from 0 to 9 with smooth inclines
 - Day 11: Count the numbers on some magical stones that are renumbering themselves each time you blink
+- Day 12: Find the area and perimeter of fencing needed around regions of a garden. Further complicated by needing to count the total 'sides' or straight fence sections.
 
 
 > A **bold** day number indicates a weekend (when puzzles are generally slightly harder)
