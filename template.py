@@ -7,13 +7,11 @@ def usefulFunction():
 
 # Code for Part One ----------------------------------------------------
 def partOne(inputFilePath):
-  inputFile = open(inputFilePath, "r")
 
-  for line in inputFile:
-    if usefulFunction():
+  with open(inputFilePath, "r") as file:
+    for line in file:
       print(line)
 
-  inputFile.close()
   result = 0
 
 
