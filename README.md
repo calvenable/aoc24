@@ -19,6 +19,7 @@ Each day I run `.\day.ps1` which is a PowerShell script that sets up a folder fo
 - Day 11: Count the numbers on some magical stones that are renumbering themselves each time you blink
 - Day 12: Find the area and perimeter of fencing needed around regions of a garden. Further complicated by needing to count the total 'sides' or straight fence sections.
 - Day 13: Use some maths to work out how to beat some (very large) claw machines with the fewest tokens.
+- **Day 14:** Following the locations of some moving robots, and finding when they align to form a Christmas tree.
 
 
 > A **bold** day number indicates a weekend (when puzzles are generally slightly harder)
