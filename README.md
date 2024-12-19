@@ -20,7 +20,11 @@ Each day I run `.\day.ps1` which is a PowerShell script that sets up a folder fo
 - Day 12: Find the area and perimeter of fencing needed around regions of a garden. Further complicated by needing to count the total 'sides' or straight fence sections.
 - Day 13: Use some maths to work out how to beat some (very large) claw machines with the fewest tokens.
 - **Day 14:** Following the locations of some moving robots, and finding when they align to form a Christmas tree.
-- **Day 15:** Track the locations of boxes in a warehouse as a robot pushes them around.
+- **Day 15:** Track the locations of boxes in a warehouse as a robot pushes them around. Uh-oh! Now the boxes are twice as wide!
+- Day 16: Reindeer in a maze, find the path with the smallest (steps + 1000\*turns). Then find how many tiles are part of *any* shortest path.
+- Day 17: A 3-bit computer runs a program with various operators and operands. Work out what its output will be.
+- Day 18: A 2D grid with new walls (*"corrupted memory"*) falling each second. Find the shortest path after 1024 walls added, then determine which wall completely blocks your exit path when added.
+- Day 19: Arrange towels in specific patterns using only a set of towels with certain stripes. Can you make each pattern, and then in *how many ways* can you make that pattern?
 
 
 > A **bold** day number indicates a weekend (when puzzles are generally slightly harder)

@@ -1,6 +1,8 @@
 # Advent of Code 2025 - day15
 import pyperclip
 
+wideWarehouse:list[list[str]] = []
+
 class Point():
   def __init__(self, x = 0, y = 0):
     self.x = x
@@ -41,10 +43,61 @@ def canMove(grid:list[list[str]], start:Point, direction:Point):
       return True
     case 'O':
       return canMove(grid, moveTo, direction)
+    case '[':
+      if direction in [Point(0,1), Point(0,-1)]:
+        # Check vertically past [ and corresponding ]
+        return canMove(grid, moveTo, direction) and canMove(grid, moveTo+Point(1,0), direction)
+      else:
+        # Continue checking horizontally past the second tile of the box
+        return canMove(grid, moveTo + direction, direction)
+    case ']':
+      if direction in [Point(0,1), Point(0,-1)]:
+        # Check vertically past ] and corresponding [
+        return canMove(grid, moveTo, direction) and canMove(grid, moveTo+Point(-1,0), direction)
+      else:
+        # Continue checking horizontally past the second tile of the box
+        return canMove(grid, moveTo + direction, direction)
     case '#':
       return False
     case _:
       return False
+    
+def moveAndPush(loc:Point, prevChar:str, direction:Point):
+  whatIsThere = wideWarehouse[loc.x][loc.y]
+  match whatIsThere:
+    case '@':
+      wideWarehouse[loc.x][loc.y] = '.'
+      moveAndPush(loc+direction, whatIsThere, direction)
+
+    case '.':
+      wideWarehouse[loc.x][loc.y] = prevChar
+
+    case '[':
+      if (direction in [Point(0,1),Point(0,-1)]):
+        # Pushing vertically, need to also push ] on RHS
+        wideWarehouse[loc.x][loc.y] = prevChar
+        wideWarehouse[loc.x+1][loc.y] = '.'
+
+        moveAndPush(loc+direction, whatIsThere, direction)
+        moveAndPush(loc+Point(1,0)+direction, ']', direction)
+      else:
+        # Pushing horizontally, push as normal
+        wideWarehouse[loc.x][loc.y] = prevChar
+        moveAndPush(loc+direction, whatIsThere, direction)
+
+    case ']':
+      if (direction in [Point(0,1),Point(0,-1)]):
+        # Pushing vertically, need to also push [ on LHS
+        wideWarehouse[loc.x][loc.y] = prevChar
+        wideWarehouse[loc.x-1][loc.y] = '.'
+
+        moveAndPush(loc+direction, whatIsThere, direction)
+        moveAndPush(loc+Point(-1,0)+direction, '[', direction)
+      else:
+        # Pushing horizontally, push as normal
+        wideWarehouse[loc.x][loc.y] = prevChar
+        moveAndPush(loc+direction, whatIsThere, direction)
+
 
 # Code for Part One ----------------------------------------------------
 def partOne(inputFilePath):
@@ -84,19 +137,17 @@ def partOne(inputFilePath):
   for instruction in instructions:
     direction = directions[instruction]
     if canMove(warehouse, robot, direction):
+      justPickedUp = '@'
       currentSpace = robot
-      newSpace = currentSpace + direction
       warehouse[currentSpace.x][currentSpace.y] = '.'
-      tempOut = warehouse[newSpace.x][newSpace.y]
-      warehouse[newSpace.x][newSpace.y] = '@'
+
+      while justPickedUp != '.':
+        newSpace = currentSpace + direction
+        temp = warehouse[newSpace.x][newSpace.y]
+        warehouse[newSpace.x][newSpace.y] = justPickedUp
+        justPickedUp = temp
+        currentSpace += direction
       robot += direction
-
-      while tempOut != '.':
-        newSpace += direction
-        tempIn = warehouse[newSpace.x][newSpace.y]
-        warehouse[newSpace.x][newSpace.y] = tempOut
-        tempOut = tempIn
-
 
   result = 0
   for x in range(len(warehouse)):
@@ -109,7 +160,6 @@ def partOne(inputFilePath):
 
 # Code for Part Two ----------------------------------------------------
 def partTwo(inputFilePath):
-  warehouse:list[list[str]] = []
   instructions:list[str] = []
   readingInstructions = False
   robot = Point(0,0)
@@ -121,20 +171,24 @@ def partTwo(inputFilePath):
         instructions += list(line.strip())
       else:
         if len(line) > 2:
-          if len(warehouse) == 0:
-            for i in range(len(line)):
-              warehouse.append(['#','#'])
+          if len(wideWarehouse) == 0:
+            for i in range(len(line.strip())*2):
+              wideWarehouse.append(['#'])
           else:
-            for i in range(len(line)):
-              match line[i]:
+            for i in range(0, len(line.strip())*2, 2):
+              match line[i//2]:
                 case '#':
-                  warehouse[i] += ['#', '#']
+                  wideWarehouse[i] += ['#']
+                  wideWarehouse[i+1] += ['#']
                 case '.':
-                  warehouse[i] += ['.', '.']
+                  wideWarehouse[i] += ['.']
+                  wideWarehouse[i+1] += ['.']
                 case 'O':
-                  warehouse[i] += ['[', ']']
+                  wideWarehouse[i] += ['[']
+                  wideWarehouse[i+1] += [']']
                 case '@':
-                  warehouse[i] += ['@', '.']
+                  wideWarehouse[i] += ['@']
+                  wideWarehouse[i+1] += ['.']
             
           if '@' in line:
             robot = Point(2*line.index('@'), y)
@@ -152,29 +206,15 @@ def partTwo(inputFilePath):
 
   for instruction in instructions:
     direction = directions[instruction]
-    # TODO: Update canMove to check the current column
-    # and columns of adjacent box pieces if pushing up or down
-    if canMove(warehouse, robot, direction):
-      # TODO: Update stepping and char moving to include adjacent columns
-      # if pushing vertically and tempOut = '[' or ']'
-      currentSpace = robot
-      newSpace = currentSpace + direction
-      warehouse[currentSpace.x][currentSpace.y] = '.'
-      tempOut = warehouse[newSpace.x][newSpace.y]
-      warehouse[newSpace.x][newSpace.y] = '@'
+    
+    if canMove(wideWarehouse, robot, direction):
+      moveAndPush(robot, '.', direction)
       robot += direction
 
-      while tempOut != '.':
-        newSpace += direction
-        tempIn = warehouse[newSpace.x][newSpace.y]
-        warehouse[newSpace.x][newSpace.y] = tempOut
-        tempOut = tempIn
-
-
   result = 0
-  for x in range(len(warehouse)):
-    for y in range(len(warehouse[x])):
-      if warehouse[x][y] == 'O':
+  for x in range(len(wideWarehouse)):
+    for y in range(len(wideWarehouse[x])):
+      if wideWarehouse[x][y] == '[':
         result += x + (100 * y)
         
   return result
@@ -182,10 +222,10 @@ def partTwo(inputFilePath):
 
 # Run the code for the specified part ----------------------------------
 # answer = partOne("day15/test.txt")
-answer = partOne("day15/input.txt")
+# answer = partOne("day15/input.txt")
 
 # answer = partTwo("day15/test.txt")
-# answer = partTwo("day15/input.txt")
+answer = partTwo("day15/input.txt")
 
 pyperclip.copy(answer)
 print(answer)
