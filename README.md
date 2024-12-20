@@ -25,6 +25,7 @@ Each day I run `.\day.ps1` which is a PowerShell script that sets up a folder fo
 - Day 17: A 3-bit computer runs a program with various operators and operands. Work out what its output will be.
 - Day 18: A 2D grid with new walls (*"corrupted memory"*) falling each second. Find the shortest path after 1024 walls added, then determine which wall completely blocks your exit path when added.
 - Day 19: Arrange towels in specific patterns using only a set of towels with certain stripes. Can you make each pattern, and then in *how many ways* can you make that pattern?
+- Day 20: Find the best places to glitch through walls in a 2D map racetrack. You can cheat for 2, or why not 20 seconds!
 
 
 > A **bold** day number indicates a weekend (when puzzles are generally slightly harder)
