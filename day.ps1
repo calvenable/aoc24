@@ -1,5 +1,6 @@
-$dirName = "day" + (Get-Date -Format "dd")
-$dayNumber = (Get-Date -Format "dd").trimStart('0')
+$day = (Get-Date -Format "dd") # To run for a specific day, replace this with e.g. "22"
+$dirName = "day$day"
+$dayNumber = $day.trimStart('0')
 
 # Create a new directory and test input file for the day
 New-Item -Path "." -Name "$dirName" -ItemType "directory"
